@@ -130,12 +130,11 @@
         .gallery-count { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-left: 10px; }
         .gallery-close { background: linear-gradient(135deg, #e94560, #ff6b9d); border: none; padding: 10px 20px; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; }
         .gallery-grid { flex: 1; overflow-y: auto; padding: 15px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-content: start; }
-        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; position: relative; }
+        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
         .gallery-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); border-color: rgba(233,69,96,0.5); }
         .gallery-item img { width: 100%; height: auto; max-height: 280px; object-fit: contain; background: #000; display: block; }
-        .gallery-item-actions { position: absolute; top: 8px; left: 8px; right: 8px; display: flex; gap: 5px; z-index: 10; }
-        .gallery-item-btn { flex: 1; padding: 5px 4px; border: none; border-radius: 6px; font-size: 0.7rem; cursor: pointer; font-weight: bold; opacity: 0.9; }
-        .gallery-item:hover .gallery-item-btn { opacity: 1; }
+        .gallery-item-actions { display: flex; gap: 5px; padding: 6px; background: rgba(0,0,0,0.7); }
+        .gallery-item-btn { flex: 1; padding: 5px 4px; border: none; border-radius: 6px; font-size: 0.7rem; cursor: pointer; font-weight: bold; }
         .download-btn { background: linear-gradient(135deg, #00d9ff, #0ea5e9); color: white; }
         .delete-btn { background: linear-gradient(135deg, #ef4444, #e94560); color: white; }
         .gallery-empty { grid-column: 1/-1; text-align: center; padding: 60px; color: rgba(255,255,255,0.4); }
@@ -310,12 +309,11 @@
         .gallery-count { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-left: 10px; }
         .gallery-close { background: linear-gradient(135deg, #e94560, #ff6b9d); border: none; padding: 10px 20px; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; }
         .gallery-grid { flex: 1; overflow-y: auto; padding: 15px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-content: start; }
-        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; position: relative; }
+        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
         .gallery-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); border-color: rgba(233,69,96,0.5); }
         .gallery-item img { width: 100%; height: auto; max-height: 280px; object-fit: contain; background: #000; display: block; }
-        .gallery-item-actions { position: absolute; top: 8px; left: 8px; right: 8px; display: flex; gap: 5px; z-index: 10; }
-        .gallery-item-btn { flex: 1; padding: 5px 4px; border: none; border-radius: 6px; font-size: 0.7rem; cursor: pointer; font-weight: bold; opacity: 0.9; }
-        .gallery-item:hover .gallery-item-btn { opacity: 1; }
+        .gallery-item-actions { display: flex; gap: 5px; padding: 6px; background: rgba(0,0,0,0.7); }
+        .gallery-item-btn { flex: 1; padding: 5px 4px; border: none; border-radius: 6px; font-size: 0.7rem; cursor: pointer; font-weight: bold; }
         .download-btn { background: linear-gradient(135deg, #00d9ff, #0ea5e9); color: white; }
         .delete-btn { background: linear-gradient(135deg, #ef4444, #e94560); color: white; }
         .gallery-empty { grid-column: 1/-1; text-align: center; padding: 60px; color: rgba(255,255,255,0.4); }
@@ -763,11 +761,11 @@ const BADGE_DATA = {
         const page = allImages.slice((currentPage-1)*pageSize, currentPage*pageSize);
         $('galleryGrid').innerHTML = page.map(img => `
             <div class="gallery-item">
+                <img src="https://crmppzkcadtlcjcidlxc.supabase.co/storage/v1/object/public/${BUCKET_NAME}/${img.name}" loading="lazy">
                 <div class="gallery-item-actions">
                     <button class="gallery-item-btn download-btn" onclick="downloadImg('${img.name}')">下载</button>
                     <button class="gallery-item-btn delete-btn" onclick="promptDelete('${img.name}')">删除</button>
                 </div>
-                <img src="https://crmppzkcadtlcjcidlxc.supabase.co/storage/v1/object/public/${BUCKET_NAME}/${img.name}" loading="lazy">
             </div>
         `).join('');
     }
