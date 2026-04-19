@@ -135,8 +135,8 @@
         .gallery-item img { width: 100%; aspect-ratio: 9/14; object-fit: cover; }
         .gallery-item-info { padding: 10px; background: rgba(0,0,0,0.5); }
         .gallery-item-time { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
-        .gallery-item-actions { display: flex; gap: 5px; margin-top: 8px; }
-        .gallery-item-btn { flex: 1; padding: 6px; border: none; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: bold; }
+        .gallery-item-actions { display: flex; flex-direction: row; gap: 4px; margin-top: 6px; }
+        .gallery-item-btn { flex: 1; padding: 4px 2px; border: none; border-radius: 4px; font-size: 0.65rem; cursor: pointer; font-weight: bold; }
         .download-btn { background: linear-gradient(135deg, #00d9ff, #0ea5e9); color: white; }
         .delete-btn { background: linear-gradient(135deg, #ef4444, #e94560); color: white; }
         .gallery-empty { grid-column: 1/-1; text-align: center; padding: 60px; color: rgba(255,255,255,0.4); }
@@ -148,6 +148,10 @@
 @media (max-width: 600px) {
     .gallery-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 10px; }
 }
+
+.popup-notice { margin: 15px 0; padding: 12px; background: rgba(233,69,96,0.1); border-radius: 10px; border: 1px solid rgba(233,69,96,0.3); }
+.popup-notice-title { font-size: 1rem; font-weight: bold; color: #e94560; margin-bottom: 8px; }
+.popup-notice-text { font-size: 0.85rem; color: rgba(255,255,255,0.8); margin: 5px 0; }
 </style>
 
     <style>
@@ -308,8 +312,8 @@
         .gallery-item img { width: 100%; aspect-ratio: 9/14; object-fit: cover; }
         .gallery-item-info { padding: 10px; background: rgba(0,0,0,0.5); }
         .gallery-item-time { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
-        .gallery-item-actions { display: flex; gap: 5px; margin-top: 8px; }
-        .gallery-item-btn { flex: 1; padding: 6px; border: none; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: bold; }
+        .gallery-item-actions { display: flex; flex-direction: row; gap: 4px; margin-top: 6px; }
+        .gallery-item-btn { flex: 1; padding: 4px 2px; border: none; border-radius: 4px; font-size: 0.65rem; cursor: pointer; font-weight: bold; }
         .download-btn { background: linear-gradient(135deg, #00d9ff, #0ea5e9); color: white; }
         .delete-btn { background: linear-gradient(135deg, #ef4444, #e94560); color: white; }
         .gallery-empty { grid-column: 1/-1; text-align: center; padding: 60px; color: rgba(255,255,255,0.4); }
@@ -330,7 +334,7 @@
     <div class="popup-overlay" id="welcomePopup">
         <div class="popup-box">
             <div class="popup-title">✨ 欢迎使用 YTB定制工具</div>
-            <div class="popup-qun">QQ分享群：466035616</div>
+            <div class="popup-qun">本工具仅限于编辑图片<br>上传H图撞大运</div>
             <div class="popup-btn-group">
                 <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=oXJpRAVmGjk3RRAFjR9QC8r4fgvGOuX%2FvCPGOkhIJfBiqKSJRnLQ7HfmBST9spvP&busi_data=eyJncm91cENvZGUiOiI0NjYwMzU2MTYiLCJ0b2tlbiI6IlJ0ZUwvOWc5eHRiWnRncmpscHZLelB1MTFnanlNTC90UWRlSWlkSGJoRTBVbU4rWTk3SWIwRTRYR2hPVU83WkYiLCJ1aW4iOiIxODcyNzQ2NTE1In0%3D&data=WPhTn6FUve-wcNswufuYjqNLUZkpPZYz3W3RiTAC6hm5uneNxvpIlsI7CHWbmwQcBn1vW3XEDdnO47EACF1wIA&svctype=4&tempid=h5_group_info" target="_blank" class="popup-btn popup-btn-qun">点击加群</a>
                 <button class="popup-btn popup-btn-start" id="confirmBtn">点击作图</button>
