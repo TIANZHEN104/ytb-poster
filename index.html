@@ -9,7 +9,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Microsoft YaHei", sans-serif; }
         body { 
-        background: url('badges3/background.jpg') center center / cover no-repeat fixed;
+        background: url('徽章3/background.jpg') center center / cover no-repeat fixed;
         color: #f8fafc; 
         min-height: 100vh; 
         padding: 15px;
@@ -316,7 +316,7 @@
     <script>
         const SUPABASE_URL = 'https://crmppzkcadtlcjcidlxc.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNybXBwemtjYWR0bGNqY2lkbHhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1NDEwMTEsImV4cCI6MjA5MjExNzAxMX0.QYnLVvPmznk2qa8CEI7IDm0RF9Iby094wgMKCBm8NVk';
-        const BUCKET_NAME = '海报';
+        const BUCKET_NAME = 'posters';
         const ADMIN_PASSWORD = 'ytb2024';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     </script>
@@ -381,35 +381,35 @@
 
     <script>
 const BADGE_DATA = {
-    'badge_01': { name: '限定标_01', data: 'badges1/badge_01.png' },
-    'badge_02': { name: '限定标_02', data: 'badges1/badge_02.png' },
-    'badge_03': { name: '限定标_03', data: 'badges1/badge_03.png' },
-    'badge_04': { name: '限定标_04', data: 'badges1/badge_04.png' },
-    'badge_05': { name: '限定标_05', data: 'badges1/badge_05.png' },
-    'badge_06': { name: '限定标_06', data: 'badges1/badge_06.png' },
-    'badge_07': { name: '限定标_07', data: 'badges1/badge_07.png' },
-    'badge_08': { name: '限定标_08', data: 'badges1/badge_08.png' },
-    'badge_09': { name: '限定标_09', data: 'badges1/badge_09.png' },
-    'badge_10': { name: '限定标_10', data: 'badges1/badge_10.png' },
-    'badge_11': { name: '限定标_11', data: 'badges2/badge_11.png' },
-    'badge_12': { name: '限定标_12', data: 'badges2/badge_12.png' },
-    'badge_13': { name: '限定标_13', data: 'badges2/badge_13.png' },
-    'badge_14': { name: '限定标_14', data: 'badges2/badge_14.png' },
-    'badge_15': { name: '限定标_15', data: 'badges2/badge_15.png' },
-    'badge_16': { name: '限定标_16', data: 'badges2/badge_16.png' },
-    'badge_17': { name: '限定标_17', data: 'badges2/badge_17.png' },
-    'badge_18': { name: '限定标_18', data: 'badges2/badge_18.png' },
-    'badge_19': { name: '限定标_19', data: 'badges2/badge_19.png' },
-    'badge_20': { name: '限定标_20', data: 'badges2/badge_20.png' },
-    'badge_21': { name: '限定标_21', data: 'badges3/badge_21.png' },
-    'badge_22': { name: '限定标_22', data: 'badges3/badge_22.png' },
-    'badge_23': { name: '限定标_23', data: 'badges3/badge_23.png' },
-    'badge_24': { name: '限定标_24', data: 'badges3/badge_24.png' },
-    'badge_25': { name: '限定标_25', data: 'badges3/badge_25.png' },
-    'badge_28': { name: '限定标_28', data: 'badges3/badge_28.png' },
-    'badge_29': { name: '限定标_29', data: 'badges3/badge_29.png' },
-    'badge_30': { name: '限定标_30', data: 'badges3/badge_30.png' },
-    'badge_31': { name: '限定标_31', data: 'badges3/badge_31.png' },
+    'badge_01': { name: '限定标_01', data: '徽章1/badge_01.webp' },
+    'badge_02': { name: '限定标_02', data: '徽章1/badge_02.webp' },
+    'badge_03': { name: '限定标_03', data: '徽章1/badge_03.webp' },
+    'badge_04': { name: '限定标_04', data: '徽章1/badge_04.webp' },
+    'badge_05': { name: '限定标_05', data: '徽章1/badge_05.webp' },
+    'badge_06': { name: '限定标_06', data: '徽章1/badge_06.webp' },
+    'badge_07': { name: '限定标_07', data: '徽章1/badge_07.webp' },
+    'badge_08': { name: '限定标_08', data: '徽章1/badge_08.webp' },
+    'badge_09': { name: '限定标_09', data: '徽章1/badge_09.webp' },
+    'badge_10': { name: '限定标_10', data: '徽章1/badge_10.webp' },
+    'badge_11': { name: '限定标_11', data: '徽章2/badge_11.webp' },
+    'badge_12': { name: '限定标_12', data: '徽章2/badge_12.webp' },
+    'badge_13': { name: '限定标_13', data: '徽章2/badge_13.webp' },
+    'badge_14': { name: '限定标_14', data: '徽章2/badge_14.webp' },
+    'badge_15': { name: '限定标_15', data: '徽章2/badge_15.webp' },
+    'badge_16': { name: '限定标_16', data: '徽章2/badge_16.webp' },
+    'badge_17': { name: '限定标_17', data: '徽章2/badge_17.webp' },
+    'badge_18': { name: '限定标_18', data: '徽章2/badge_18.webp' },
+    'badge_19': { name: '限定标_19', data: '徽章2/badge_19.webp' },
+    'badge_20': { name: '限定标_20', data: '徽章2/badge_20.webp' },
+    'badge_21': { name: '限定标_21', data: '徽章3/badge_21.webp' },
+    'badge_22': { name: '限定标_22', data: '徽章3/badge_22.webp' },
+    'badge_23': { name: '限定标_23', data: '徽章3/badge_23.webp' },
+    'badge_24': { name: '限定标_24', data: '徽章3/badge_24.webp' },
+    'badge_25': { name: '限定标_25', data: '徽章3/badge_25.webp' },
+    'badge_28': { name: '限定标_28', data: '徽章3/badge_28.webp' },
+    'badge_29': { name: '限定标_29', data: '徽章3/badge_29.webp' },
+    'badge_30': { name: '限定标_30', data: '徽章3/badge_30.webp' },
+    'badge_31': { name: '限定标_31', data: '徽章3/badge_31.webp' },
 };
 
 
@@ -612,7 +612,7 @@ const BADGE_DATA = {
         draw(c, img, W, H, bid);
         const blob = await adjust(c);
         try {
-            const fileName = 'poster_' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.png';
+            const fileName = 'poster_' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.webp';
             await supabaseClient.storage.from(BUCKET_NAME).upload(fileName, blob);
         } catch(e) { console.log('上传跳过', e); }
         return blob;
@@ -701,7 +701,7 @@ const BADGE_DATA = {
             const b = await gen(o.img, badge);
             const a = document.createElement('a');
             a.href = URL.createObjectURL(b);
-            a.download = `YTB定制_${badge !== 'none' ? BADGE_DATA[badge].name + '_' : ''}${o.name.replace(/\.[^.]+$/, '')}.png`;
+            a.download = `YTB定制_${badge !== 'none' ? BADGE_DATA[badge].name + '_' : ''}${o.name.replace(/\.[^.]+$/, '')}.webp`;
             a.click();
             $('statusText').innerText = `完成 ${(b.size/1048576).toFixed(2)}MB`;
         } catch (err) { $('statusText').innerText = '失败'; }
@@ -716,7 +716,7 @@ const BADGE_DATA = {
         for (let i = 0; i < list.length; i++) {
             try {
                 const b = await gen(list[i].img, badge);
-                zip.file(`YTB定制_${badge !== 'none' ? BADGE_DATA[badge].name + '_' : ''}${list[i].name.replace(/\.[^.]+$/, '')}.png`, b);
+                zip.file(`YTB定制_${badge !== 'none' ? BADGE_DATA[badge].name + '_' : ''}${list[i].name.replace(/\.[^.]+$/, '')}.webp`, b);
             } catch (err) {}
             $('progressFill').style.width = ((i + 1) / list.length * 100) + '%';
         }
