@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YTB定制 - 限定标版</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Microsoft YaHei", sans-serif; }
+        body { 
+        background: url('badges/background.jpg') center center / cover no-repeat fixed;
+        color: #f8fafc; 
+        min-height: 100vh; 
+        padding: 15px;
+        position: relative;
+    }
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.2);
+        pointer-events: none;
+        z-index: 0;
+    }
+    .container { position: relative; z-index: 1; }
+        .container { max-width: 800px; margin: 0 auto; background: rgba(255,255,255,0.08); border-radius: 24px; padding: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 80px rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(20px); }
+        .header { text-align: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid transparent; background: linear-gradient(90deg, transparent, #e94560, #00d9ff, #e94560, transparent); background-size: 200% 100%; animation: borderGlow 3s linear infinite; }
+        .title { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, #fff 0%, #e94560 50%, #00d9ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 0 30px rgba(233,69,96,0.3); }
+        .subtitle { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 8px; letter-spacing: 1px; }
+        .badge-section { background: rgba(255,255,255,0.03); border-radius: 16px; padding: 15px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); }
+        .badge-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 12px; color: #00d9ff; text-shadow: 0 0 15px rgba(0,217,255,0.3); }
+        .badge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(55px, 1fr)); gap: 6px; padding: 10px; background: transparent; border-radius: 12px; max-height: 260px; overflow-y: auto; }
+        .badge-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 5px; text-align: center; cursor: pointer; transition: 0.3s; backdrop-filter: blur(5px); }
+        .badge-item:hover { border-color: rgba(233,69,96,0.5); background: rgba(233,69,96,0.08); transform: scale(1.05); }
+        .badge-item.selected { border-color: #e94560; box-shadow: 0 0 20px rgba(233,69,96,0.4); background: rgba(233,69,96,0.1); }
+        .badge-thumb { width: 100%; height: 20px; object-fit: contain; }
+        .badge-name { font-size: 0.4rem; color: #94a3b8; margin-top: 1px; }
+        .upload-area { background: rgba(255,255,255,0.02); border: 2px dashed rgba(233,69,96,0.5); border-radius: 16px; padding: 30px 15px; text-align: center; margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
+        .upload-area:hover { border-color: #e94560; background: rgba(233,69,96,0.05); }
+        .upload-btn { background: linear-gradient(135deg, #e94560 0%, #ff6b9d 100%); border: none; padding: 12px 28px; border-radius: 25px; color: white; font-weight: bold; cursor: pointer; margin-bottom: 8px; font-size: 0.9rem; pointer-events: none; box-shadow: 0 4px 20px rgba(233,69,96,0.4); }
+        .file-input { display: none; }
+        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 15px; }
+        .action-btn { padding: 8px 20px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; font-size: 0.85rem; }
+        .primary-btn { background: linear-gradient(135deg, #00d9ff 0%, #0ea5e9 100%); color: white; box-shadow: 0 4px 20px rgba(0,217,255,0.4); }
+        .secondary-btn { background: linear-gradient(135deg, #e94560 0%, #ff6b9d 100%); color: white; box-shadow: 0 4px 20px rgba(233,69,96,0.4); }
+        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; max-height: 220px; overflow-y: auto; padding: 8px; background: rgba(255,255,255,0.02); border-radius: 12px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); }
+        .img-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 5px; text-align: center; border: 2px solid transparent; cursor: pointer; position: relative; transition: 0.3s; }
+        .img-card:hover { background: rgba(255,255,255,0.06); }
+        .img-card.selected { border-color: #00d9ff; box-shadow: 0 0 20px rgba(0,217,255,0.3); }
+        .img-thumb { width: 100%; aspect-ratio: 9/14; object-fit: cover; border-radius: 6px; background: #000; }
+        .img-name { font-size: 0.6rem; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #94a3b8; }
+        .remove-btn { position: absolute; top: -4px; right: -4px; background: linear-gradient(135deg, #e94560, #ff6b9d); width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: white; box-shadow: 0 2px 10px rgba(233,69,96,0.5); }
+        .preview-area { text-align: center; margin-bottom: 15px; }
+        .preview-canvas { max-width: 150px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); aspect-ratio: 9/14; }
+        .progress-wrap { height: 5px; background: #334155; border-radius: 10px; overflow: hidden; margin-bottom: 10px; display: none; }
+        .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+        .status-text { text-align: center; font-size: 0.8rem; color: #94a3b8; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #e94560, #00d9ff); border-radius: 10px; }
+        .info { background: #172540; border-radius: 6px; padding: 6px 10px; margin-bottom: 10px; font-size: 0.7rem; color: #94a3b8; }
+        .info strong { color: #60a5fa; }
+    
+    @keyframes borderGlow {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+
+    .qun-banner {
+        text-align: center;
+        padding: 10px 15px;
+        margin-bottom: 12px;
+        background: linear-gradient(90deg, rgba(59,130,246,0.2), rgba(167,139,250,0.2), rgba(59,130,246,0.2));
+        background-size: 200% 100%;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        color: #60a5fa;
+        border: 1px solid rgba(59,130,246,0.3);
+        animation: qunGlow 3s ease-in-out infinite;
+        position: relative;
+        overflow: hidden;
+    }
+    .qun-banner::before {
+        content: "";
+        position: absolute;
+        top: 0; left: -100%;
+        width: 100%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        animation: qunShine 3s ease-in-out infinite;
+    }
+    .qun-icon {
+        font-size: 1.1rem;
+        margin-right: 6px;
+        animation: iconBounce 2s ease-in-out infinite;
+    }
+    .qun-text {
+        color: #e0e7ff;
+    }
+    .qun-number {
+        color: #fbbf24;
+        font-weight: bold;
+        font-size: 1rem;
+        text-shadow: 0 0 10px rgba(251,191,36,0.5);
+    }
+    @keyframes qunGlow {
+        0%, 100% { 
+            background-position: 0% 50%;
+            box-shadow: 0 0 15px rgba(59,130,246,0.3);
+        }
+        50% { 
+            background-position: 100% 50%;
+            box-shadow: 0 0 25px rgba(167,139,250,0.4);
+        }
+    }
+    @keyframes qunShine {
+        0% { left: -100%; }
+        50%, 100% { left: 100%; }
+    }
+    @keyframes iconBounce {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+
+        .gallery-btn { background: linear-gradient(135deg, #f59e0b, #ef4444) !important; color: white !important; }
+        .gallery-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 10000; display: none; flex-direction: column; }
+        .gallery-header { padding: 20px; background: linear-gradient(135deg, rgba(26,26,46,0.95), rgba(22,33,62,0.95)); border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; }
+        .gallery-title { font-size: 1.3rem; font-weight: bold; background: linear-gradient(135deg, #fff, #e94560); -webkit-background-clip: text; color: transparent; }
+        .gallery-count { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-left: 10px; }
+        .gallery-close { background: linear-gradient(135deg, #e94560, #ff6b9d); border: none; padding: 10px 20px; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; }
+        .gallery-grid { flex: 1; overflow-y: auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; align-content: start; }
+        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-color: rgba(233,69,96,0.5); }
+        .gallery-item img { width: 100%; aspect-ratio: 9/14; object-fit: cover; }
+        .gallery-item-info { padding: 10px; background: rgba(0,0,0,0.5); }
+        .gallery-item-time { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
+        .gallery-item-actions { display: flex; gap: 5px; margin-top: 8px; }
+        .gallery-item-btn { flex: 1; padding: 6px; border: none; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: bold; }
+        .download-btn { background: linear-gradient(135deg, #00d9ff, #0ea5e9); color: white; }
+        .delete-btn { background: linear-gradient(135deg, #ef4444, #e94560); color: white; }
+        .gallery-empty { grid-column: 1/-1; text-align: center; padding: 60px; color: rgba(255,255,255,0.4); }
+        .admin-prompt { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(145deg, #1a1a2e, #16213e); padding: 25px; border-radius: 16px; z-index: 10001; display: none; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); }
+        .admin-prompt input { width: 200px; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; margin: 15px 0; }
+        .admin-prompt button { width: 100%; padding: 10px; border-radius: 8px; border: none; background: linear-gradient(135deg, #e94560, #ff6b9d); color: white; font-weight: bold; cursor: pointer; }
+    </style>
+
+    <style>
+        .popup-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .popup-box {
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%);
+            border-radius: 24px;
+            padding: 35px 30px;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 
+                0 25px 80px rgba(0,0,0,0.6),
+                0 0 60px rgba(233,69,96,0.15),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.08);
+            animation: popIn 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .popup-box::before {
+            content: "";
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(233,69,96,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        @keyframes popIn {
+            from { transform: scale(0.8) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .popup-title {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #e94560 50%, #fff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+        .popup-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 2px solid rgba(59,130,246,0.3);
+            background: rgba(15,23,42,0.8);
+            color: #f8fafc;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .popup-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 15px rgba(59,130,246,0.3);
+        }
+        .popup-input::placeholder {
+            color: #64748b;
+        }
+        .popup-btn-group {
+            display: flex;
+            gap: 12px;
+        }
+        .popup-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 14px;
+            border: none;
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .popup-btn::before {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .popup-btn:hover::before {
+            left: 100%;
+        }
+        .popup-btn-qun {
+            background: linear-gradient(135deg, #ff6b9d 0%, #e94560 100%);
+            box-shadow: 0 4px 20px rgba(233,69,96,0.4);
+        }
+        .popup-btn-start {
+            background: linear-gradient(135deg, #00d9ff 0%, #0ea5e9 100%);
+            box-shadow: 0 4px 20px rgba(0,217,255,0.4);
+        }
+        .popup-btn:hover {
+            transform: translateY(-3px);
+        }
+        .popup-btn-qun:hover {
+            box-shadow: 0 8px 30px rgba(233,69,96,0.5);
+        }
+        .popup-btn-start:hover {
+            box-shadow: 0 8px 30px rgba(0,217,255,0.5);
+        }
+
+        .popup-qun {
+            text-align: center;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 25px;
+            padding: 18px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+        }
+        .popup-qun-num {
+            color: #00d9ff;
+            font-weight: bold;
+            font-size: 1.3rem;
+            text-shadow: 0 0 20px rgba(0,217,255,0.5);
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .popup-qun-num:hover {
+            color: #ff6b9d;
+            text-shadow: 0 0 25px rgba(255,107,157,0.6);
+        }
+    
+        .gallery-btn { background: linear-gradient(135deg, #f59e0b, #ef4444) !important; color: white !important; }
+        .gallery-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 10000; display: none; flex-direction: column; }
+        .gallery-header { padding: 20px; background: linear-gradient(135deg, rgba(26,26,46,0.95), rgba(22,33,62,0.95)); border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; }
+        .gallery-title { font-size: 1.3rem; font-weight: bold; background: linear-gradient(135deg, #fff, #e94560); -webkit-background-clip: text; color: transparent; }
+        .gallery-count { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-left: 10px; }
+        .gallery-close { background: linear-gradient(135deg, #e94560, #ff6b9d); border: none; padding: 10px 20px; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; }
+        .gallery-grid { flex: 1; overflow-y: auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; align-content: start; }
+        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-color: rgba(233,69,96,0.5); }
+        .gallery-item img { width: 100%; aspect-ratio: 9/14; object-fit: cover; }
+        .gallery-item-info { padding: 10px; background: rgba(0,0,0,0.5); }
+        .gallery-item-time { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
+        .gallery-item-actions { display: flex; gap: 5px; margin-top: 8px; }
+        .gallery-item-btn { flex: 1; padding: 6px; border: none; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: bold; }
+        .download-btn { background: linear-gradient(135deg, #00d9ff, #0ea5e9); color: white; }
+        .delete-btn { background: linear-gradient(135deg, #ef4444, #e94560); color: white; }
+        .gallery-empty { grid-column: 1/-1; text-align: center; padding: 60px; color: rgba(255,255,255,0.4); }
+        .admin-prompt { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(145deg, #1a1a2e, #16213e); padding: 25px; border-radius: 16px; z-index: 10001; display: none; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); }
+        .admin-prompt input { width: 200px; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; margin: 15px 0; }
+        .admin-prompt button { width: 100%; padding: 10px; border-radius: 8px; border: none; background: linear-gradient(135deg, #e94560, #ff6b9d); color: white; font-weight: bold; cursor: pointer; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://crmppzkcadtlcjcidlxc.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNybXBwemtjYWR0bGNqY2lkbHhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1NDEwMTEsImV4cCI6MjA5MjExNzAxMX0.QYnLVvPmznk2qa8CEI7IDm0RF9Iby094wgMKCBm8NVk';
+        const BUCKET_NAME = '海报';
+        const ADMIN_PASSWORD = 'ytb2024';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    </script>
+</head>
+<body>
+    <div class="popup-overlay" id="welcomePopup">
+        <div class="popup-box">
+            <div class="popup-title">✨ 欢迎使用 YTB定制工具</div>
+            <div class="popup-qun">QQ分享群：466035616</div>
+            <div class="popup-btn-group">
+                <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=oXJpRAVmGjk3RRAFjR9QC8r4fgvGOuX%2FvCPGOkhIJfBiqKSJRnLQ7HfmBST9spvP&busi_data=eyJncm91cENvZGUiOiI0NjYwMzU2MTYiLCJ0b2tlbiI6IlJ0ZUwvOWc5eHRiWnRncmpscHZLelB1MTFnanlNTC90UWRlSWlkSGJoRTBVbU4rWTk3SWIwRTRYR2hPVU83WkYiLCJ1aW4iOiIxODcyNzQ2NTE1In0%3D&data=WPhTn6FUve-wcNswufuYjqNLUZkpPZYz3W3RiTAC6hm5uneNxvpIlsI7CHWbmwQcBn1vW3XEDdnO47EACF1wIA&svctype=4&tempid=h5_group_info" target="_blank" class="popup-btn popup-btn-qun">点击加群</a>
+                <button class="popup-btn popup-btn-start" id="confirmBtn">点击作图</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header">
+            <div class="title">YTB定制 · 限定标版</div>
+            <div class="subtitle">9:14比例 | 450×700 | 内置29款限定标</div>
+        </div>
+        <div class="qun-banner">
+            <span class="qun-icon">🎮</span>
+            <span class="qun-text">游戏分享资源Q群：<span class="qun-number">466035616</span></span>
+        </div>
+
+
+        
+
+        <div class="badge-section">
+            <div class="badge-title">🏷️ 选择限定标</div>
+            
+            <div class="badge-grid" id="badgeGrid">
+                <div class="badge-item selected" data-badge="none">
+                    <div style="height:20px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;">❌</div>
+                    <div class="badge-name">无</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="upload-area" id="uploadArea">
+            <input type="file" id="fileInput" class="file-input" accept="image/*" multiple>
+            <button class="upload-btn">📤 选择图片</button>
+            <div style="font-size:0.75rem;opacity:0.7">支持JPG/PNG/WEBP，可多选</div>
+        </div>
+
+        <div class="btn-group">
+            <button id="singleGenBtn" class="action-btn secondary-btn" disabled>✨ 单张</button>
+            <button id="batchGenBtn" class="action-btn primary-btn" disabled>📦 批量</button>
+            <button id="clearBtn" class="action-btn secondary-btn">清空</button>
+            <button id="galleryBtn" class="action-btn gallery-btn">🖼️ 查看图库</button>
+        </div>
+
+        <div class="preview-area">
+            <canvas id="previewCanvas" width="270" height="420"></canvas>
+        </div>
+
+        <div class="progress-wrap" id="progressWrap"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="status-text" id="statusText">选择限定标，上传图片开始</div>
+
+        <div class="image-grid" id="imageGrid"></div>
+    </div>
+
+    <script>
+const BADGE_DATA = {
+    'badge_01': { name: '限定标_01', data: 'badges/badge_01.png' },
+    'badge_02': { name: '限定标_02', data: 'badges/badge_02.png' },
+    'badge_03': { name: '限定标_03', data: 'badges/badge_03.png' },
+    'badge_04': { name: '限定标_04', data: 'badges/badge_04.png' },
+    'badge_05': { name: '限定标_05', data: 'badges/badge_05.png' },
+    'badge_06': { name: '限定标_06', data: 'badges/badge_06.png' },
+    'badge_07': { name: '限定标_07', data: 'badges/badge_07.png' },
+    'badge_08': { name: '限定标_08', data: 'badges/badge_08.png' },
+    'badge_09': { name: '限定标_09', data: 'badges/badge_09.png' },
+    'badge_10': { name: '限定标_10', data: 'badges/badge_10.png' },
+    'badge_11': { name: '限定标_11', data: 'badges/badge_11.png' },
+    'badge_12': { name: '限定标_12', data: 'badges/badge_12.png' },
+    'badge_13': { name: '限定标_13', data: 'badges/badge_13.png' },
+    'badge_14': { name: '限定标_14', data: 'badges/badge_14.png' },
+    'badge_15': { name: '限定标_15', data: 'badges/badge_15.png' },
+    'badge_16': { name: '限定标_16', data: 'badges/badge_16.png' },
+    'badge_17': { name: '限定标_17', data: 'badges/badge_17.png' },
+    'badge_18': { name: '限定标_18', data: 'badges/badge_18.png' },
+    'badge_19': { name: '限定标_19', data: 'badges/badge_19.png' },
+    'badge_20': { name: '限定标_20', data: 'badges/badge_20.png' },
+    'badge_21': { name: '限定标_21', data: 'badges/badge_21.png' },
+    'badge_22': { name: '限定标_22', data: 'badges/badge_22.png' },
+    'badge_23': { name: '限定标_23', data: 'badges/badge_23.png' },
+    'badge_24': { name: '限定标_24', data: 'badges/badge_24.png' },
+    'badge_25': { name: '限定标_25', data: 'badges/badge_25.png' },
+    'badge_28': { name: '限定标_28', data: 'badges/badge_28.png' },
+    'badge_29': { name: '限定标_29', data: 'badges/badge_29.png' },
+    'badge_30': { name: '限定标_30', data: 'badges/badge_30.png' },
+    'badge_31': { name: '限定标_31', data: 'badges/badge_31.png' },
+};
+
+
+(function(){
+    const W = 450, H = 700, R = W/H, TARGET_KB_MIN = 200, TARGET_KB_MAX = 500;
+    let list = [], sel = null, proc = false, badge = 'none', imgs = {};
+    const $ = id => document.getElementById(id);
+    const canvas = $('previewCanvas'), ctx = canvas.getContext('2d');
+    
+    function loadBadges() {
+        Object.keys(BADGE_DATA).forEach(k => {
+            const i = new Image();
+            i.onload = () => {
+                imgs[k] = i;
+                const d = document.createElement('div');
+                d.className = 'badge-item'; d.dataset.badge = k;
+                d.innerHTML = `<img class="badge-thumb" src="${BADGE_DATA[k].data}"><div class="badge-name">${BADGE_DATA[k].name}</div>`;
+                $('badgeGrid').appendChild(d);
+            };
+            i.src = BADGE_DATA[k].data;
+        });
+    }
+
+    function loadImg(f) {
+        return new Promise((res, rej) => {
+            const i = new Image();
+            i.onload = () => res({img: i, url: URL.createObjectURL(f)});
+            i.onerror = rej;
+            i.src = URL.createObjectURL(f);
+        });
+    }
+
+    function draw(c, img, w, h, bid) {
+        const x = c.getContext('2d');
+        c.width = w; c.height = h;
+        let sx = 0, sy = 0, sw = img.width, sh = img.height;
+        const r = img.width / img.height;
+        if (r > R) { sw = img.height * R; sx = (img.width - sw) / 2; }
+        else { sh = img.width / R; sy = (img.height - sh) / 2; }
+        x.clearRect(0, 0, w, h);
+        x.imageSmoothingEnabled = true;
+        x.imageSmoothingQuality = 'high';
+        x.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
+        
+        if (bid && bid !== 'none' && imgs[bid]) {
+            const bi = imgs[bid];
+            const bw = w * 0.85;
+            const bh = bw * (bi.height / bi.width);
+            const bx = (w - bw) / 2;
+            const by = (h / 2) + (h * 0.05);
+            x.drawImage(bi, bx, by, bw, bh);
+        }
+    }
+
+    function noise(d, s) {
+        const a = new Uint8ClampedArray(d.data);
+        for (let i = 0; i < a.length; i += 4) {
+            if (Math.random() < 0.5) {
+                const dl = (Math.random() - 0.5) * s;
+                a[i] = Math.min(255, Math.max(0, a[i] + dl));
+                a[i+1] = Math.min(255, Math.max(0, a[i+1] + dl * 0.75));
+                a[i+2] = Math.min(255, Math.max(0, a[i+2] + dl * 0.8));
+            }
+        }
+        return new ImageData(a, d.width, d.height);
+    }
+
+    function quant(d, st) {
+        const a = new Uint8ClampedArray(d.data);
+        for (let i = 0; i < a.length; i += 4) {
+            a[i] = Math.round(a[i] / st) * st;
+            a[i+1] = Math.round(a[i+1] / st) * st;
+            a[i+2] = Math.round(a[i+2] / st) * st;
+        }
+        return new ImageData(a, d.width, d.height);
+    }
+
+    async function toBlob(d) {
+        return new Promise(r => {
+            const c = document.createElement('canvas');
+            c.width = d.width; c.height = d.height;
+            c.getContext('2d').putImageData(d, 0, 0);
+            c.toBlob(r, 'image/png', 1.0);
+        });
+    }
+
+    // 在PNG文件中添加填充数据，使其精确达到目标大小
+    function padPngToSize(blob, targetBytes) {
+        return new Promise(resolve => {
+            if (blob.size >= targetBytes) {
+                resolve(blob);
+                return;
+            }
+            const needed = targetBytes - blob.size;
+            // PNG tEXt chunk格式: 长度(4) + "tEXt"(4) + keyword + \0 + text + CRC(4)
+            // chunk总大小 = 4(长度) + 4(类型) + 数据长度 + 4(CRC)
+            const keyword = 'Comment';
+            const headerSize = 4 + 4 + keyword.length + 1 + 4; // 长度+类型+keyword+null+CRC
+            const textSize = needed - headerSize;
+            if (textSize < 0) {
+                resolve(blob);
+                return;
+            }
+            const text = 'X'.repeat(textSize);
+            const chunkData = new TextEncoder().encode(keyword + '\x00' + text);
+            const chunkType = new TextEncoder().encode('tEXt');
+            
+            const reader = new FileReader();
+            reader.onload = () => {
+                const original = new Uint8Array(reader.result);
+                // PNG签名(8) + IHDR(25) + ... + IDAT + IEND(12)
+                // 在IEND前插入tEXt chunk
+                const iendOffset = original.length - 12; // IEND是最后12字节
+                const lengthBytes = new Uint8Array(4);
+                const view = new DataView(lengthBytes.buffer);
+                view.setUint32(0, chunkData.length, false);
+                
+                // 计算CRC
+                const crcData = new Uint8Array(chunkType.length + chunkData.length);
+                crcData.set(chunkType, 0);
+                crcData.set(chunkData, chunkType.length);
+                const crc = crc32(crcData);
+                const crcBytes = new Uint8Array(4);
+                const crcView = new DataView(crcBytes.buffer);
+                crcView.setUint32(0, crc, false);
+                
+                const result = new Uint8Array(original.length + 4 + 4 + chunkData.length + 4);
+                result.set(original.slice(0, iendOffset), 0);
+                let pos = iendOffset;
+                result.set(lengthBytes, pos); pos += 4;
+                result.set(chunkType, pos); pos += 4;
+                result.set(chunkData, pos); pos += chunkData.length;
+                result.set(crcBytes, pos); pos += 4;
+                result.set(original.slice(iendOffset), pos);
+                
+                resolve(new Blob([result], {type: 'image/png'}));
+            };
+            reader.readAsArrayBuffer(blob);
+        });
+    }
+
+    // CRC32计算
+    function crc32(data) {
+        let crc = 0xFFFFFFFF;
+        const table = new Uint32Array(256);
+        for (let i = 0; i < 256; i++) {
+            let c = i;
+            for (let j = 0; j < 8; j++) {
+                c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+            }
+            table[i] = c;
+        }
+        for (let i = 0; i < data.length; i++) {
+            crc = table[(crc ^ data[i]) & 0xFF] ^ (crc >>> 8);
+        }
+        return (crc ^ 0xFFFFFFFF) >>> 0;
+    }
+
+    async function adjust(c) {
+        const minBytes = TARGET_KB_MIN * 1024;
+        const maxBytes = TARGET_KB_MAX * 1024;
+        const t = document.createElement('canvas');
+        t.width = c.width; t.height = c.height;
+        const x = t.getContext('2d');
+        x.drawImage(c, 0, 0);
+        let d = x.getImageData(0, 0, t.width, t.height);
+        let b = await toBlob(d);
+        
+        // 如果图片太小，添加噪点增大
+        if (b.size < minBytes) {
+            for (let s = 2; s <= 30; s += 3) {
+                const nb = await toBlob(noise(d, s));
+                if (nb.size >= minBytes && nb.size <= maxBytes) {
+                    b = nb;
+                    break;
+                }
+                b = nb;
+            }
+        }
+        
+        // 如果图片太大，量化减小
+        if (b.size > maxBytes) {
+            for (let st = 2; st <= 20; st += 2) {
+                const nb = await toBlob(quant(d, st));
+                if (nb.size <= maxBytes) {
+                    b = nb;
+                    break;
+                }
+            }
+            if (b.size > maxBytes) {
+                b = await toBlob(quant(d, 12));
+            }
+        }
+        
+        return b;
+    }
+
+    async function gen(img, bid) {
+        const c = document.createElement('canvas');
+        draw(c, img, W, H, bid);
+        const blob = await adjust(c);
+        try {
+            const fileName = 'poster_' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.png';
+            await supabaseClient.storage.from(BUCKET_NAME).upload(fileName, blob);
+        } catch(e) { console.log('上传跳过', e); }
+        return blob;
+    }
+
+    function preview() {
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, 270, 420);
+        if (!sel) {
+            ctx.fillStyle = '#666';
+            ctx.font = '12px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('预览', 135, 200);
+            return;
+        }
+        const o = list.find(i => i.id === sel);
+        if (o) draw(canvas, o.img, 270, 420, badge);
+    }
+
+    function render() {
+        const g = $('imageGrid');
+        g.innerHTML = list.length ? '' : '<div style="grid-column:1/-1;text-align:center;padding:25px;color:#666;font-size:0.8rem;">暂无图片</div>';
+        $('singleGenBtn').disabled = !sel || proc;
+        $('batchGenBtn').disabled = !list.length || proc;
+        list.forEach(it => {
+            const c = document.createElement('div');
+            c.className = 'img-card' + (it.id === sel ? ' selected' : '');
+            c.innerHTML = `<img class="img-thumb" src="${it.url}"><div class="img-name">${it.name}</div><div class="remove-btn">×</div>`;
+            c.onclick = e => {
+                if (e.target.classList.contains('remove-btn')) {
+                    URL.revokeObjectURL(it.url);
+                    list = list.filter(i => i.id !== it.id);
+                    if (sel === it.id) sel = list[0]?.id || null;
+                    render(); preview();
+                } else { sel = it.id; render(); preview(); }
+            };
+            g.appendChild(c);
+        });
+    }
+
+    $('badgeGrid').onclick = e => {
+        const it = e.target.closest('.badge-item');
+        if (!it) return;
+        if (it.dataset.badge === badge) {
+            badge = 'none';
+            $('badgeGrid').querySelector('[data-badge="none"]').classList.add('selected');
+            it.classList.remove('selected');
+        } else {
+            $('badgeGrid').querySelectorAll('.badge-item').forEach(el => el.classList.remove('selected'));
+            it.classList.add('selected');
+            badge = it.dataset.badge;
+        }
+        preview();
+        $('statusText').innerText = badge === 'none' ? '已取消' : `已选：${BADGE_DATA[badge]?.name}`;
+    };
+
+    $('uploadArea').onclick = () => $('fileInput').click();
+    $('fileInput').onchange = async e => {
+        const fs = Array.from(e.target.files).filter(f => f.type.startsWith('image/'));
+        for (const f of fs) {
+            try {
+                const {img, url} = await loadImg(f);
+                list.push({id: Date.now() + Math.random().toString(36).slice(2), name: f.name, img, url});
+                if (!sel) sel = list[list.length - 1].id;
+            } catch (err) {}
+        }
+        render(); preview();
+        $('statusText').innerText = `已加载${fs.length}张`;
+        e.target.value = '';
+    };
+
+    $('clearBtn').onclick = () => {
+        list.forEach(i => URL.revokeObjectURL(i.url));
+        list = []; sel = null;
+        render(); preview();
+        $('statusText').innerText = '已清空';
+    };
+
+    $('singleGenBtn').onclick = async () => {
+        if (!sel || proc) return;
+        const o = list.find(i => i.id === sel);
+        if (!o) return;
+        proc = true; $('singleGenBtn').disabled = $('batchGenBtn').disabled = true;
+        $('statusText').innerText = '生成中...';
+        try {
+            const b = await gen(o.img, badge);
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(b);
+            a.download = `YTB定制_${badge !== 'none' ? BADGE_DATA[badge].name + '_' : ''}${o.name.replace(/\.[^.]+$/, '')}.png`;
+            a.click();
+            $('statusText').innerText = `完成 ${(b.size/1048576).toFixed(2)}MB`;
+        } catch (err) { $('statusText').innerText = '失败'; }
+        finally { proc = false; render(); }
+    };
+
+    $('batchGenBtn').onclick = async () => {
+        if (!list.length || proc) return;
+        proc = true; $('singleGenBtn').disabled = $('batchGenBtn').disabled = true;
+        $('progressWrap').style.display = 'block';
+        const zip = new JSZip();
+        for (let i = 0; i < list.length; i++) {
+            try {
+                const b = await gen(list[i].img, badge);
+                zip.file(`YTB定制_${badge !== 'none' ? BADGE_DATA[badge].name + '_' : ''}${list[i].name.replace(/\.[^.]+$/, '')}.png`, b);
+            } catch (err) {}
+            $('progressFill').style.width = ((i + 1) / list.length * 100) + '%';
+        }
+        const zb = await zip.generateAsync({type: 'blob'});
+        saveAs(zb, `YTB定制_${Date.now()}.zip`);
+        $('progressWrap').style.display = 'none';
+        $('statusText').innerText = `完成 ${list.length}张`;
+        proc = false; render();
+    };
+
+    
+    // 弹窗确认
+    $('confirmBtn').onclick = () => {
+        $('welcomePopup').style.display = 'none';
+        
+    let deleteTarget = null;
+    $('galleryBtn').onclick = async () => { $('galleryOverlay').style.display = 'flex'; await loadGallery(); };
+    $('closeGallery').onclick = () => { $('galleryOverlay').style.display = 'none'; };
+    async function loadGallery() {
+        $('galleryGrid').innerHTML = '<div class="gallery-empty">加载中...</div>';
+        try {
+            const { data, error } = await supabaseClient.storage.from(BUCKET_NAME).list('', { limit: 1000, sortBy: { column: 'created_at', order: 'desc' } });
+            if (error) throw error;
+            const images = data.filter(f => !f.name.startsWith('.'));
+            if (images.length === 0) { $('galleryGrid').innerHTML = '<div class="gallery-empty">暂无图片</div>'; $('galleryCount').textContent = '共0张'; return; }
+            $('galleryCount').textContent = '共' + images.length + '张';
+            $('galleryGrid').innerHTML = images.map(img => `
+                <div class="gallery-item">
+                    <img src="https://crmppzkcadtlcjcidlxc.supabase.co/storage/v1/object/public/${BUCKET_NAME}/${img.name}" loading="lazy">
+                    <div class="gallery-item-info">
+                        <div class="gallery-item-time">${new Date(img.created_at).toLocaleString('zh-CN')}</div>
+                        <div class="gallery-item-actions">
+                            <button class="gallery-item-btn download-btn" onclick="downloadImg('${img.name}')">下载</button>
+                            <button class="gallery-item-btn delete-btn" onclick="promptDelete('${img.name}')">删除</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        } catch(e) { $('galleryGrid').innerHTML = '<div class="gallery-empty">加载失败</div>'; }
+    }
+    async function downloadImg(name) {
+        const a = document.createElement('a');
+        a.href = 'https://crmppzkcadtlcjcidlxc.supabase.co/storage/v1/object/public/' + BUCKET_NAME + '/' + name;
+        a.download = name;
+        a.click();
+    }
+    function promptDelete(name) { deleteTarget = name; $('adminPrompt').style.display = 'block'; $('adminPassword').value = ''; $('adminPassword').focus(); }
+    $('confirmAdmin').onclick = async () => {
+        if ($('adminPassword').value !== ADMIN_PASSWORD) { alert('密码错误！'); return; }
+        try { await supabaseClient.storage.from(BUCKET_NAME).remove([deleteTarget]); $('adminPrompt').style.display = 'none'; await loadGallery(); alert('删除成功！'); } 
+        catch(e) { alert('删除失败'); }
+    };
+    $('adminPassword').onkeypress = e => { if (e.key === 'Enter') $('confirmAdmin').click(); };
+    loadBadges(); preview();
+    };
+})();
+</script>
+
+    <div class="gallery-overlay" id="galleryOverlay">
+        <div class="gallery-header">
+            <div><span class="gallery-title">🖼️ 海报图库</span><span class="gallery-count" id="galleryCount">加载中...</span></div>
+            <button class="gallery-close" id="closeGallery">返回工具</button>
+        </div>
+        <div class="gallery-grid" id="galleryGrid"><div class="gallery-empty">加载中...</div></div>
+    </div>
+    <div class="admin-prompt" id="adminPrompt">
+        <div style="color:#fff;margin-bottom:10px;">🔐 请输入管理员密码</div>
+        <input type="password" id="adminPassword" placeholder="输入密码">
+        <button id="confirmAdmin">确认</button>
+    </div>
+</body>
+</html>
