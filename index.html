@@ -144,36 +144,18 @@
         .admin-prompt input { width: 200px; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; margin: 15px 0; }
         .admin-prompt button { width: 100%; padding: 10px; border-radius: 8px; border: none; background: linear-gradient(135deg, #e94560, #ff6b9d); color: white; font-weight: bold; cursor: pointer; }
     
-/* 分页样式 */
 .gallery-pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    padding: 15px;
-    background: rgba(0,0,0,0.3);
+    display: flex; justify-content: center; align-items: center;
+    gap: 10px; padding: 15px; background: rgba(0,0,0,0.3);
     border-top: 1px solid rgba(255,255,255,0.1);
 }
 .gallery-page-btn {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 8px 16px;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-    font-size: 0.85rem;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    padding: 8px 16px; border-radius: 8px; color: white; cursor: pointer; font-size: 0.85rem;
 }
-.gallery-page-btn:hover {
-    background: rgba(255,255,255,0.2);
-}
-.gallery-page-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-}
-.gallery-page-info {
-    color: rgba(255,255,255,0.6);
-    font-size: 0.85rem;
-}
+.gallery-page-btn:hover { background: rgba(255,255,255,0.2); }
+.gallery-page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.gallery-page-info { color: rgba(255,255,255,0.6); font-size: 0.85rem; }
 </style>
 
     <style>
@@ -412,35 +394,35 @@
 
     <script>
 const BADGE_DATA = {
-    'badge_01': { name: '限定标_01', data: '徽章1/badge_01.png' },
-    'badge_02': { name: '限定标_02', data: '徽章1/badge_02.png' },
-    'badge_03': { name: '限定标_03', data: '徽章1/badge_03.png' },
-    'badge_04': { name: '限定标_04', data: '徽章1/badge_04.png' },
-    'badge_05': { name: '限定标_05', data: '徽章1/badge_05.png' },
-    'badge_06': { name: '限定标_06', data: '徽章1/badge_06.png' },
-    'badge_07': { name: '限定标_07', data: '徽章1/badge_07.png' },
-    'badge_08': { name: '限定标_08', data: '徽章1/badge_08.png' },
-    'badge_09': { name: '限定标_09', data: '徽章1/badge_09.png' },
-    'badge_10': { name: '限定标_10', data: '徽章1/badge_10.png' },
-    'badge_11': { name: '限定标_11', data: '徽章2/badge_11.png' },
-    'badge_12': { name: '限定标_12', data: '徽章2/badge_12.png' },
-    'badge_13': { name: '限定标_13', data: '徽章2/badge_13.png' },
-    'badge_14': { name: '限定标_14', data: '徽章2/badge_14.png' },
-    'badge_15': { name: '限定标_15', data: '徽章2/badge_15.png' },
-    'badge_16': { name: '限定标_16', data: '徽章2/badge_16.png' },
-    'badge_17': { name: '限定标_17', data: '徽章2/badge_17.png' },
-    'badge_18': { name: '限定标_18', data: '徽章2/badge_18.png' },
-    'badge_19': { name: '限定标_19', data: '徽章2/badge_19.png' },
-    'badge_20': { name: '限定标_20', data: '徽章2/badge_20.png' },
-    'badge_21': { name: '限定标_21', data: '徽章3/badge_21.png' },
-    'badge_22': { name: '限定标_22', data: '徽章3/badge_22.png' },
-    'badge_23': { name: '限定标_23', data: '徽章3/badge_23.png' },
-    'badge_24': { name: '限定标_24', data: '徽章3/badge_24.png' },
-    'badge_25': { name: '限定标_25', data: '徽章3/badge_25.png' },
-    'badge_28': { name: '限定标_28', data: '徽章3/badge_28.png' },
-    'badge_29': { name: '限定标_29', data: '徽章3/badge_29.png' },
-    'badge_30': { name: '限定标_30', data: '徽章3/badge_30.png' },
-    'badge_31': { name: '限定标_31', data: '徽章3/badge_31.png' },
+    'badge_01': { name: '限定标_01', data: '徽章1/badge_01.webp' },
+    'badge_02': { name: '限定标_02', data: '徽章1/badge_02.webp' },
+    'badge_03': { name: '限定标_03', data: '徽章1/badge_03.webp' },
+    'badge_04': { name: '限定标_04', data: '徽章1/badge_04.webp' },
+    'badge_05': { name: '限定标_05', data: '徽章1/badge_05.webp' },
+    'badge_06': { name: '限定标_06', data: '徽章1/badge_06.webp' },
+    'badge_07': { name: '限定标_07', data: '徽章1/badge_07.webp' },
+    'badge_08': { name: '限定标_08', data: '徽章1/badge_08.webp' },
+    'badge_09': { name: '限定标_09', data: '徽章1/badge_09.webp' },
+    'badge_10': { name: '限定标_10', data: '徽章1/badge_10.webp' },
+    'badge_11': { name: '限定标_11', data: '徽章2/badge_11.webp' },
+    'badge_12': { name: '限定标_12', data: '徽章2/badge_12.webp' },
+    'badge_13': { name: '限定标_13', data: '徽章2/badge_13.webp' },
+    'badge_14': { name: '限定标_14', data: '徽章2/badge_14.webp' },
+    'badge_15': { name: '限定标_15', data: '徽章2/badge_15.webp' },
+    'badge_16': { name: '限定标_16', data: '徽章2/badge_16.webp' },
+    'badge_17': { name: '限定标_17', data: '徽章2/badge_17.webp' },
+    'badge_18': { name: '限定标_18', data: '徽章2/badge_18.webp' },
+    'badge_19': { name: '限定标_19', data: '徽章2/badge_19.webp' },
+    'badge_20': { name: '限定标_20', data: '徽章2/badge_20.webp' },
+    'badge_21': { name: '限定标_21', data: '徽章3/badge_21.webp' },
+    'badge_22': { name: '限定标_22', data: '徽章3/badge_22.webp' },
+    'badge_23': { name: '限定标_23', data: '徽章3/badge_23.webp' },
+    'badge_24': { name: '限定标_24', data: '徽章3/badge_24.webp' },
+    'badge_25': { name: '限定标_25', data: '徽章3/badge_25.webp' },
+    'badge_28': { name: '限定标_28', data: '徽章3/badge_28.webp' },
+    'badge_29': { name: '限定标_29', data: '徽章3/badge_29.webp' },
+    'badge_30': { name: '限定标_30', data: '徽章3/badge_30.webp' },
+    'badge_31': { name: '限定标_31', data: '徽章3/badge_31.webp' },
 };
 
 
@@ -766,27 +748,49 @@ const BADGE_DATA = {
     let deleteTarget = null;
     $('galleryBtn').onclick = async () => { $('galleryOverlay').style.display = 'flex'; await loadGallery(); };
     $('closeGallery').onclick = () => { $('galleryOverlay').style.display = 'none'; };
+    let allImages = []; let currentPage = 1; const pageSize = 12;
     async function loadGallery() {
         $('galleryGrid').innerHTML = '<div class="gallery-empty">加载中...</div>';
         try {
             const { data, error } = await supabaseClient.storage.from(BUCKET_NAME).list('', { limit: 1000, sortBy: { column: 'created_at', order: 'desc' } });
             if (error) throw error;
-            const images = data.filter(f => !f.name.startsWith('.'));
-            if (images.length === 0) { $('galleryGrid').innerHTML = '<div class="gallery-empty">暂无图片</div>'; $('galleryCount').textContent = '共0张'; return; }
-            $('galleryCount').textContent = '共' + images.length + '张';
-            $('galleryGrid').innerHTML = images.map(img => `
-                <div class="gallery-item">
-                    <img src="https://crmppzkcadtlcjcidlxc.supabase.co/storage/v1/object/public/${BUCKET_NAME}/${img.name}" loading="lazy">
-                    <div class="gallery-item-info">
-                        <div class="gallery-item-time">${new Date(img.created_at).toLocaleString('zh-CN')}</div>
-                        <div class="gallery-item-actions">
-                            <button class="gallery-item-btn download-btn" onclick="downloadImg('${img.name}')">下载</button>
-                            <button class="gallery-item-btn delete-btn" onclick="promptDelete('${img.name}')">删除</button>
-                        </div>
+            allImages = data.filter(f => !f.name.startsWith('.'));
+            if (allImages.length === 0) { $('galleryGrid').innerHTML = '<div class="gallery-empty">暂无图片</div>'; $('galleryCount').textContent = '共0张'; $('galleryPagination')?.remove(); return; }
+            $('galleryCount').textContent = '共' + allImages.length + '张';
+            currentPage = 1;
+            renderPage(); renderPagination();
+        } catch(e) { $('galleryGrid').innerHTML = '<div class="gallery-empty">加载失败</div>'; $('galleryPagination')?.remove(); }
+    }
+    function renderPage() {
+        const page = allImages.slice((currentPage-1)*pageSize, currentPage*pageSize);
+        $('galleryGrid').innerHTML = page.map(img => `
+            <div class="gallery-item">
+                <img src="https://crmppzkcadtlcjcidlxc.supabase.co/storage/v1/object/public/${BUCKET_NAME}/${img.name}" loading="lazy">
+                <div class="gallery-item-info">
+                    <div class="gallery-item-time">${new Date(img.created_at).toLocaleString('zh-CN')}</div>
+                    <div class="gallery-item-actions">
+                        <button class="gallery-item-btn download-btn" onclick="downloadImg('${img.name}')">下载</button>
+                        <button class="gallery-item-btn delete-btn" onclick="promptDelete('${img.name}')">删除</button>
                     </div>
                 </div>
-            `).join('');
-        } catch(e) { $('galleryGrid').innerHTML = '<div class="gallery-empty">加载失败</div>'; }
+            </div>
+        `).join('');
+    }
+    function renderPagination() {
+        const total = Math.ceil(allImages.length / pageSize);
+        if (total <= 1) { $('galleryPagination')?.remove(); return; }
+        let html = '<div class="gallery-pagination" id="galleryPagination">';
+        html += `<button class="gallery-page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>上一页</button>`;
+        html += `<span class="gallery-page-info">第 ${currentPage}/${total} 页</span>`;
+        html += `<button class="gallery-page-btn" onclick="goPage(${currentPage+1})" ${currentPage===total?'disabled':''}>下一页</button>`;
+        html += '</div>';
+        if (!$('galleryPagination')) $('galleryOverlay').insertAdjacentHTML('beforeend', html);
+        else $('galleryPagination').outerHTML = html;
+    }
+    function goPage(p) {
+        const total = Math.ceil(allImages.length / pageSize);
+        if (p < 1 || p > total) return;
+        currentPage = p; renderPage(); renderPagination(); $('galleryGrid').scrollTop = 0;
     }
     window.downloadImg = async function(name) {
         const a = document.createElement('a');
