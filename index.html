@@ -129,14 +129,14 @@
         .gallery-title { font-size: 1.3rem; font-weight: bold; background: linear-gradient(135deg, #fff, #e94560); -webkit-background-clip: text; color: transparent; }
         .gallery-count { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-left: 10px; }
         .gallery-close { background: linear-gradient(135deg, #e94560, #ff6b9d); border: none; padding: 10px 20px; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; }
-        .gallery-grid { flex: 1; overflow-y: auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; align-content: start; }
-        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
-        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-color: rgba(233,69,96,0.5); }
-        .gallery-item img { width: 100%; aspect-ratio: 9/14; object-fit: cover; }
-        .gallery-item-info { padding: 10px; background: rgba(0,0,0,0.5); }
-        .gallery-item-time { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
-        .gallery-item-actions { display: flex; gap: 5px; margin-top: 8px; }
-        .gallery-item-btn { flex: 1; padding: 6px; border: none; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: bold; }
+        .gallery-grid { flex: 1; overflow-y: auto; padding: 15px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-content: start; }
+        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; display: flex; flex-direction: column; }
+        .gallery-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); border-color: rgba(233,69,96,0.5); }
+        .gallery-item img { width: 100%; height: auto; max-height: 280px; object-fit: contain; background: #000; }
+        .gallery-item-info { padding: 8px; background: rgba(0,0,0,0.5); }
+        .gallery-item-time { font-size: 0.65rem; color: rgba(255,255,255,0.5); margin-bottom: 5px; }
+        .gallery-item-actions { display: flex; gap: 5px; }
+        .gallery-item-btn { flex: 1; padding: 6px 4px; border: none; border-radius: 6px; font-size: 0.7rem; cursor: pointer; font-weight: bold; }
         .download-btn { background: linear-gradient(135deg, #00d9ff, #0ea5e9); color: white; }
         .delete-btn { background: linear-gradient(135deg, #ef4444, #e94560); color: white; }
         .gallery-empty { grid-column: 1/-1; text-align: center; padding: 60px; color: rgba(255,255,255,0.4); }
@@ -310,14 +310,14 @@
         .gallery-title { font-size: 1.3rem; font-weight: bold; background: linear-gradient(135deg, #fff, #e94560); -webkit-background-clip: text; color: transparent; }
         .gallery-count { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-left: 10px; }
         .gallery-close { background: linear-gradient(135deg, #e94560, #ff6b9d); border: none; padding: 10px 20px; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; }
-        .gallery-grid { flex: 1; overflow-y: auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; align-content: start; }
-        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
-        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-color: rgba(233,69,96,0.5); }
-        .gallery-item img { width: 100%; aspect-ratio: 9/14; object-fit: cover; }
-        .gallery-item-info { padding: 10px; background: rgba(0,0,0,0.5); }
-        .gallery-item-time { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
-        .gallery-item-actions { display: flex; gap: 5px; margin-top: 8px; }
-        .gallery-item-btn { flex: 1; padding: 6px; border: none; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: bold; }
+        .gallery-grid { flex: 1; overflow-y: auto; padding: 15px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-content: start; }
+        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; display: flex; flex-direction: column; }
+        .gallery-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); border-color: rgba(233,69,96,0.5); }
+        .gallery-item img { width: 100%; height: auto; max-height: 280px; object-fit: contain; background: #000; }
+        .gallery-item-info { padding: 8px; background: rgba(0,0,0,0.5); }
+        .gallery-item-time { font-size: 0.65rem; color: rgba(255,255,255,0.5); margin-bottom: 5px; }
+        .gallery-item-actions { display: flex; gap: 5px; }
+        .gallery-item-btn { flex: 1; padding: 6px 4px; border: none; border-radius: 6px; font-size: 0.7rem; cursor: pointer; font-weight: bold; }
         .download-btn { background: linear-gradient(135deg, #00d9ff, #0ea5e9); color: white; }
         .delete-btn { background: linear-gradient(135deg, #ef4444, #e94560); color: white; }
         .gallery-empty { grid-column: 1/-1; text-align: center; padding: 60px; color: rgba(255,255,255,0.4); }
@@ -787,7 +787,7 @@ const BADGE_DATA = {
         if (!$('galleryPagination')) $('galleryOverlay').insertAdjacentHTML('beforeend', html);
         else $('galleryPagination').outerHTML = html;
     }
-    function goPage(p) {
+    window.goPage = function(p) {
         const total = Math.ceil(allImages.length / pageSize);
         if (p < 1 || p > total) return;
         currentPage = p; renderPage(); renderPagination(); $('galleryGrid').scrollTop = 0;
