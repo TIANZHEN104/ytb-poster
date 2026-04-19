@@ -124,19 +124,19 @@
     }
 
         .gallery-btn { background: linear-gradient(135deg, #f59e0b, #ef4444) !important; color: white !important; }
-        .gallery-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 10000; display: none; flex-direction: column; pointer-events: auto; }
+        .gallery-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 10000; display: none; flex-direction: column; }
         .gallery-header { padding: 20px; background: linear-gradient(135deg, rgba(26,26,46,0.95), rgba(22,33,62,0.95)); border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; }
         .gallery-title { font-size: 1.3rem; font-weight: bold; background: linear-gradient(135deg, #fff, #e94560); -webkit-background-clip: text; color: transparent; }
         .gallery-count { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-left: 10px; }
         .gallery-close { background: linear-gradient(135deg, #e94560, #ff6b9d); border: none; padding: 10px 20px; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; }
-        .gallery-grid { flex: 1; overflow-y: auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; align-content: start; pointer-events: auto; }
-        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; pointer-events: auto; }
+        .gallery-grid { flex: 1; overflow-y: auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; align-content: start; }
+        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
         .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-color: rgba(233,69,96,0.5); }
         .gallery-item img { width: 100%; aspect-ratio: 9/14; object-fit: cover; }
-        .gallery-item-info { padding: 10px; background: rgba(0,0,0,0.5); pointer-events: auto; z-index: 5; position: relative; }
+        .gallery-item-info { padding: 10px; background: rgba(0,0,0,0.5); }
         .gallery-item-time { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
         .gallery-item-actions { display: flex; gap: 5px; margin-top: 8px; }
-        .gallery-item-btn { flex: 1; padding: 10px; border: none; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: bold; pointer-events: auto; z-index: 10; position: relative; }
+        .gallery-item-btn { flex: 1; padding: 6px; border: none; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: bold; }
         .download-btn { background: linear-gradient(135deg, #00d9ff, #0ea5e9); color: white; }
         .delete-btn { background: linear-gradient(135deg, #ef4444, #e94560); color: white; }
         .gallery-empty { grid-column: 1/-1; text-align: center; padding: 60px; color: rgba(255,255,255,0.4); }
@@ -292,19 +292,19 @@
         }
     
         .gallery-btn { background: linear-gradient(135deg, #f59e0b, #ef4444) !important; color: white !important; }
-        .gallery-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 10000; display: none; flex-direction: column; pointer-events: auto; }
+        .gallery-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 10000; display: none; flex-direction: column; }
         .gallery-header { padding: 20px; background: linear-gradient(135deg, rgba(26,26,46,0.95), rgba(22,33,62,0.95)); border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; }
         .gallery-title { font-size: 1.3rem; font-weight: bold; background: linear-gradient(135deg, #fff, #e94560); -webkit-background-clip: text; color: transparent; }
         .gallery-count { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-left: 10px; }
         .gallery-close { background: linear-gradient(135deg, #e94560, #ff6b9d); border: none; padding: 10px 20px; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; }
-        .gallery-grid { flex: 1; overflow-y: auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; align-content: start; pointer-events: auto; }
-        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; pointer-events: auto; }
+        .gallery-grid { flex: 1; overflow-y: auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; align-content: start; }
+        .gallery-item { background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
         .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-color: rgba(233,69,96,0.5); }
         .gallery-item img { width: 100%; aspect-ratio: 9/14; object-fit: cover; }
-        .gallery-item-info { padding: 10px; background: rgba(0,0,0,0.5); pointer-events: auto; z-index: 5; position: relative; }
+        .gallery-item-info { padding: 10px; background: rgba(0,0,0,0.5); }
         .gallery-item-time { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
         .gallery-item-actions { display: flex; gap: 5px; margin-top: 8px; }
-        .gallery-item-btn { flex: 1; padding: 10px; border: none; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: bold; pointer-events: auto; z-index: 10; position: relative; }
+        .gallery-item-btn { flex: 1; padding: 6px; border: none; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: bold; }
         .download-btn { background: linear-gradient(135deg, #00d9ff, #0ea5e9); color: white; }
         .delete-btn { background: linear-gradient(135deg, #ef4444, #e94560); color: white; }
         .gallery-empty { grid-column: 1/-1; text-align: center; padding: 60px; color: rgba(255,255,255,0.4); }
@@ -381,35 +381,35 @@
 
     <script>
 const BADGE_DATA = {
-    'badge_01': { name: '限定标_01', data: '徽章1/badge_01.webp' },
-    'badge_02': { name: '限定标_02', data: '徽章1/badge_02.webp' },
-    'badge_03': { name: '限定标_03', data: '徽章1/badge_03.webp' },
-    'badge_04': { name: '限定标_04', data: '徽章1/badge_04.webp' },
-    'badge_05': { name: '限定标_05', data: '徽章1/badge_05.webp' },
-    'badge_06': { name: '限定标_06', data: '徽章1/badge_06.webp' },
-    'badge_07': { name: '限定标_07', data: '徽章1/badge_07.webp' },
-    'badge_08': { name: '限定标_08', data: '徽章1/badge_08.webp' },
-    'badge_09': { name: '限定标_09', data: '徽章1/badge_09.webp' },
-    'badge_10': { name: '限定标_10', data: '徽章1/badge_10.webp' },
-    'badge_11': { name: '限定标_11', data: '徽章2/badge_11.webp' },
-    'badge_12': { name: '限定标_12', data: '徽章2/badge_12.webp' },
-    'badge_13': { name: '限定标_13', data: '徽章2/badge_13.webp' },
-    'badge_14': { name: '限定标_14', data: '徽章2/badge_14.webp' },
-    'badge_15': { name: '限定标_15', data: '徽章2/badge_15.webp' },
-    'badge_16': { name: '限定标_16', data: '徽章2/badge_16.webp' },
-    'badge_17': { name: '限定标_17', data: '徽章2/badge_17.webp' },
-    'badge_18': { name: '限定标_18', data: '徽章2/badge_18.webp' },
-    'badge_19': { name: '限定标_19', data: '徽章2/badge_19.webp' },
-    'badge_20': { name: '限定标_20', data: '徽章2/badge_20.webp' },
-    'badge_21': { name: '限定标_21', data: '徽章3/badge_21.webp' },
-    'badge_22': { name: '限定标_22', data: '徽章3/badge_22.webp' },
-    'badge_23': { name: '限定标_23', data: '徽章3/badge_23.webp' },
-    'badge_24': { name: '限定标_24', data: '徽章3/badge_24.webp' },
-    'badge_25': { name: '限定标_25', data: '徽章3/badge_25.webp' },
-    'badge_28': { name: '限定标_28', data: '徽章3/badge_28.webp' },
-    'badge_29': { name: '限定标_29', data: '徽章3/badge_29.webp' },
-    'badge_30': { name: '限定标_30', data: '徽章3/badge_30.webp' },
-    'badge_31': { name: '限定标_31', data: '徽章3/badge_31.webp' },
+    'badge_01': { name: '限定标_01', data: '徽章1/badge_01.png' },
+    'badge_02': { name: '限定标_02', data: '徽章1/badge_02.png' },
+    'badge_03': { name: '限定标_03', data: '徽章1/badge_03.png' },
+    'badge_04': { name: '限定标_04', data: '徽章1/badge_04.png' },
+    'badge_05': { name: '限定标_05', data: '徽章1/badge_05.png' },
+    'badge_06': { name: '限定标_06', data: '徽章1/badge_06.png' },
+    'badge_07': { name: '限定标_07', data: '徽章1/badge_07.png' },
+    'badge_08': { name: '限定标_08', data: '徽章1/badge_08.png' },
+    'badge_09': { name: '限定标_09', data: '徽章1/badge_09.png' },
+    'badge_10': { name: '限定标_10', data: '徽章1/badge_10.png' },
+    'badge_11': { name: '限定标_11', data: '徽章2/badge_11.png' },
+    'badge_12': { name: '限定标_12', data: '徽章2/badge_12.png' },
+    'badge_13': { name: '限定标_13', data: '徽章2/badge_13.png' },
+    'badge_14': { name: '限定标_14', data: '徽章2/badge_14.png' },
+    'badge_15': { name: '限定标_15', data: '徽章2/badge_15.png' },
+    'badge_16': { name: '限定标_16', data: '徽章2/badge_16.png' },
+    'badge_17': { name: '限定标_17', data: '徽章2/badge_17.png' },
+    'badge_18': { name: '限定标_18', data: '徽章2/badge_18.png' },
+    'badge_19': { name: '限定标_19', data: '徽章2/badge_19.png' },
+    'badge_20': { name: '限定标_20', data: '徽章2/badge_20.png' },
+    'badge_21': { name: '限定标_21', data: '徽章3/badge_21.png' },
+    'badge_22': { name: '限定标_22', data: '徽章3/badge_22.png' },
+    'badge_23': { name: '限定标_23', data: '徽章3/badge_23.png' },
+    'badge_24': { name: '限定标_24', data: '徽章3/badge_24.png' },
+    'badge_25': { name: '限定标_25', data: '徽章3/badge_25.png' },
+    'badge_28': { name: '限定标_28', data: '徽章3/badge_28.png' },
+    'badge_29': { name: '限定标_29', data: '徽章3/badge_29.png' },
+    'badge_30': { name: '限定标_30', data: '徽章3/badge_30.png' },
+    'badge_31': { name: '限定标_31', data: '徽章3/badge_31.png' },
 };
 
 
@@ -612,7 +612,7 @@ const BADGE_DATA = {
         draw(c, img, W, H, bid);
         const blob = await adjust(c);
         try {
-            const fileName = 'poster_' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.webp';
+            const fileName = 'poster_' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.png';
             await supabaseClient.storage.from(BUCKET_NAME).upload(fileName, blob);
         } catch(e) { console.log('上传跳过', e); }
         return blob;
@@ -701,7 +701,7 @@ const BADGE_DATA = {
             const b = await gen(o.img, badge);
             const a = document.createElement('a');
             a.href = URL.createObjectURL(b);
-            a.download = `YTB定制_${badge !== 'none' ? BADGE_DATA[badge].name + '_' : ''}${o.name.replace(/\.[^.]+$/, '')}.webp`;
+            a.download = `YTB定制_${badge !== 'none' ? BADGE_DATA[badge].name + '_' : ''}${o.name.replace(/\.[^.]+$/, '')}.png`;
             a.click();
             $('statusText').innerText = `完成 ${(b.size/1048576).toFixed(2)}MB`;
         } catch (err) { $('statusText').innerText = '失败'; }
@@ -716,7 +716,7 @@ const BADGE_DATA = {
         for (let i = 0; i < list.length; i++) {
             try {
                 const b = await gen(list[i].img, badge);
-                zip.file(`YTB定制_${badge !== 'none' ? BADGE_DATA[badge].name + '_' : ''}${list[i].name.replace(/\.[^.]+$/, '')}.webp`, b);
+                zip.file(`YTB定制_${badge !== 'none' ? BADGE_DATA[badge].name + '_' : ''}${list[i].name.replace(/\.[^.]+$/, '')}.png`, b);
             } catch (err) {}
             $('progressFill').style.width = ((i + 1) / list.length * 100) + '%';
         }
@@ -757,21 +757,13 @@ const BADGE_DATA = {
             `).join('');
         } catch(e) { $('galleryGrid').innerHTML = '<div class="gallery-empty">加载失败</div>'; }
     }
-    async function downloadImg(name) {
-        try {
-            const response = await fetch('https://crmppzkcadtlcjcidlxc.supabase.co/storage/v1/object/public/' + BUCKET_NAME + '/' + name);
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = name;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        } catch(e) { alert('下载失败，请长按图片保存'); }
+    window.downloadImg = async function(name) {
+        const a = document.createElement('a');
+        a.href = 'https://crmppzkcadtlcjcidlxc.supabase.co/storage/v1/object/public/' + BUCKET_NAME + '/' + name;
+        a.download = name;
+        a.click();
     }
-    function promptDelete(name) { deleteTarget = name; $('adminPrompt').style.display = 'block'; $('adminPassword').value = ''; $('adminPassword').focus(); }
+    window.promptDelete = function(name) { deleteTarget = name; $('adminPrompt').style.display = 'block'; $('adminPassword').value = ''; $('adminPassword').focus(); }
     $('confirmAdmin').onclick = async () => {
         if ($('adminPassword').value !== ADMIN_PASSWORD) { alert('密码错误！'); return; }
         try { await supabaseClient.storage.from(BUCKET_NAME).remove([deleteTarget]); $('adminPrompt').style.display = 'none'; await loadGallery(); alert('删除成功！'); } 
